@@ -22,7 +22,7 @@ requirements:
 # Phase 3: Spec Generator Execution Plan
 
 ## Objective
-Convert selected insights into a formalized markdown implementation specification. This specification will be strictly tailored for autonomous coding agents (Cursor/Claude Code), containing actionable data model updates, UI changes, and <read_first>/<action> blocks.
+Convert selected insights into formal implementation specifications entirely utilizing structured JSON as the source of truth, deriving markdown only dynamically for export.
 
 ## Tasks
 
@@ -35,7 +35,7 @@ Convert selected insights into a formalized markdown implementation specificatio
 1. In `apps/api/plane/signals/models.py`, add `GeneratedSpec(WorkspaceBaseModel):`.
    - `workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="specs")`
    - `title = models.CharField(max_length=255)`
-   - `content = models.TextField()`
+   - `spec_json = models.JSONField(default=dict)`
 2. Add `GeneratedSpecSerializer` in `serializers.py` tracking these fields.
 </action>
 <acceptance_criteria>
@@ -48,13 +48,13 @@ Convert selected insights into a formalized markdown implementation specificatio
 </read_first>
 <action>
 1. Add `@shared_task def generate_spec_task(workspace_id, insight_ids=None):`.
-2. Extract the relevant `Insight` objects by `insight_ids`, or all insights if none specified.
-3. Call `openai` requesting a Markdown formatted response containing sections for: Feature Recommendation, Evidence, UI Changes, Data Model Changes, Workflow Changes, and Agent Tasks.
-4. The system prompt MUST enforce that the Agent Tasks list explicitly uses `<read_first>` and `<action>` syntax compatible with AI coders.
-5. Save the output to a new `GeneratedSpec`.
+2. Extract the relevant `Insight` objects by `insight_ids`.
+3. Call `openai` with `response_format={ "type": "json_object" }` requesting JSON format `{"data": { ... }}`.
+4. The system prompt MUST enforce returning keys: `feature_name` (string), `problem` (string), `user_story` (string), `solution` (string), `ui_changes` (array), `data_model_changes` (array), `workflow_changes` (array), and `tasks` (array of objects with `read_first` and `action`).
+5. Save the output to a new `GeneratedSpec` storing the extracted `"data"` dynamically in `spec_json`.
 </action>
 <acceptance_criteria>
-- Task correctly aggregates problem context from selected insights and produces valid markdown models.
+- Task correctly aggregates problem context from selected insights and produces valid JSON matching the exact schema without free text.
 </acceptance_criteria>
 
 ### 3. Build REST Endpoints (Backend)
@@ -91,14 +91,14 @@ Convert selected insights into a formalized markdown implementation specificatio
 <action>
 1. Create `apps/web/src/pages/workspace/specs/index.tsx`.
 2. Map existing stored specs as interactive list elements.
-3. Show the `.content` attribute rendering inside `<pre>` tags (or simple React Markdown if available) when selected.
-4. Implement a "Download as .md" button via a Blob trigger `URL.createObjectURL(new Blob([content], { type: 'text/markdown' }))`.
+3. When selecting a spec, iterate over `spec_json` to draw UI blocks for each dictionary key natively (e.g. mapping `ui_changes` array output to `<li>`). 
+4. Implement a "Download as .md" button that compiles the JSON fields into Agent-style Markdown templates using string literals (`<read_first>`, `<action>`), and exports via Blob download logic.
 </action>
 <acceptance_criteria>
-- Complete alignment with SPC-04 allowing offline preservation of AI logic paths.
+- Complete alignment with SPC-04 allowing offline preservation of AI logic paths formatted functionally on the fly.
 </acceptance_criteria>
 
 ## Verification
 - must_haves:
-  - Markdown output cleanly details actionable items.
-  - Browser correctly downloads `.md` files without CORS/DOM exceptions.
+  - Source payload utilizes raw JSON representation in Postgres backend.
+  - Generates Agent-compatible XML-based markdown templates only at the UI download stage natively.

@@ -3,18 +3,10 @@
 ## Technical Discoveries
 
 ### Backend Architecture
-1. **Data Model**: `GeneratedSpec` requires simply a title and content block, tying back to the workspace.
-2. **LLM Formatting**: Unlike Phase 2 which enforced strict JSON output, Phase 3 relies on semantic structure (Markdown). We will prompt the model using standard role assignments in `openai` to output pure markdown without code block encapsulations (or strip them before saving).
-3. **Agent Schema Compliance**: We must force the model to output steps that Claude Code can run seamlessly. Example format requested in the prompt:
-    ```xml
-    ### Task 1: Do something
-    <read_first>
-    - file.py
-    </read_first>
-    <action>
-    - Add function x
-    </action>
-    ```
+1. **Data Model**: `GeneratedSpec` requires a title and a `spec_json` JSONField.
+2. **LLM Formatting**: We will use strict structured output (JSON object) enforcing the keys: `feature_name`, `problem`, `user_story`, `solution`, `ui_changes`, `data_model_changes`, `workflow_changes`, `tasks`. 
+3. **Agent Schema Compliance**: `tasks` should be an array of objects. We will derive Markdown locally when generating the download file, building `<read_first>` and `<action>` logic from the structured tasks natively.
 
 ### Frontend Architecture
-1. **Export Functionality**: A simple standard anchor tag with a download attribute backed by a `URL.createObjectURL(new Blob(...))` serves as a lightweight and reliable `.md` file exporter. No heavy PDF dependencies required.
+1. **UI Rendering**: The view maps over the JSON object keys to create structured components (e.g., standard generic Cards displaying arrays of strings for `ui_changes`).
+2. **Export Functionality**: A simple standard anchor tag with a download attribute backed by a `URL.createObjectURL(new Blob(...))` compiling the JSON fields logically into a `.md` template on the client side.
