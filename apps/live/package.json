@@ -40,7 +40,7 @@
     "@plane/editor": "workspace:*",
     "@plane/logger": "workspace:*",
     "@plane/types": "workspace:*",
-    "@react-pdf/renderer": "^4.3.0",
+    "@react-pdf/renderer": "^4.3.2",
     "@react-pdf/types": "^2.9.2",
     "@tiptap/core": "catalog:",
     "@tiptap/html": "catalog:",
