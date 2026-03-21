@@ -16,3 +16,20 @@ class Signal(WorkspaceBaseModel):
 
     def __str__(self):
         return f"{self.title} - {self.workspace.name}"
+
+class Insight(WorkspaceBaseModel):
+    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="insights")
+    theme = models.CharField(max_length=255)
+    problem = models.TextField()
+    root_cause = models.TextField()
+    evidence = models.JSONField(default=list)
+    frequency = models.IntegerField(default=1)
+
+    class Meta:
+        verbose_name = "Insight"
+        verbose_name_plural = "Insights"
+        db_table = "insights"
+
+    def __str__(self):
+        return f"{self.theme} ({self.frequency})"
+

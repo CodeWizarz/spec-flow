@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from plane.signals.models import Signal
+from plane.signals.models import Signal, Insight
 
 class SignalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,6 +19,27 @@ class SignalSerializer(serializers.ModelSerializer):
             "id",
             "workspace",
             "processing_status",
+            "created_at",
+            "updated_at",
+        ]
+
+class InsightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Insight
+        fields = [
+            "id",
+            "workspace",
+            "theme",
+            "problem",
+            "root_cause",
+            "evidence",
+            "frequency",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = [
+            "id",
+            "workspace",
             "created_at",
             "updated_at",
         ]
