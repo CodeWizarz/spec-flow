@@ -51,7 +51,8 @@ Convert selected insights into formal implementation specifications entirely uti
 2. Extract the relevant `Insight` objects by `insight_ids`.
 3. Call `openai` with `response_format={ "type": "json_object" }` requesting JSON format `{"data": { ... }}`.
 4. The system prompt MUST enforce returning keys: `feature_name` (string), `problem` (string), `user_story` (string), `solution` (string), `ui_changes` (array), `data_model_changes` (array), `workflow_changes` (array), and `tasks` (array of objects with `read_first` and `action`).
-5. Save the output to a new `GeneratedSpec` storing the extracted `"data"` dynamically in `spec_json`.
+5. The system prompt MUST enforce STRICT conciseness: fields must be short and actionable, avoid long explanations, and `tasks` actions must be bullet-style instructions (not paragraphs).
+6. Save the output to a new `GeneratedSpec` storing the extracted `"data"` dynamically in `spec_json`.
 </action>
 <acceptance_criteria>
 - Task correctly aggregates problem context from selected insights and produces valid JSON matching the exact schema without free text.
