@@ -33,9 +33,11 @@ Extract actionable themes and core problems from the unstructured customer signa
 <action>
 1. In `apps/api/plane/signals/models.py`, add `Insight(WorkspaceBaseModel):`.
    - `workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="insights")`
-   - `title = models.CharField(max_length=255)`
-   - `problem_statement = models.TextField()`
+   - `theme = models.CharField(max_length=255)`
+   - `problem = models.TextField()`
+   - `root_cause = models.TextField()`
    - `evidence = models.JSONField(default=list)`
+   - `frequency = models.IntegerField(default=1)`
 2. Add `InsightSerializer` in `serializers.py` capturing all fields.
 </action>
 <acceptance_criteria>
@@ -52,8 +54,9 @@ Extract actionable themes and core problems from the unstructured customer signa
 1. In `signals_tasks.py`, add `@shared_task def generate_insights_task(workspace_id):`.
 2. Query all `Signal.objects.filter(workspace_id=workspace_id, processing_status='processed')`.
 3. Combine their `content` into a single text block.
-4. Pass this to a mock LLM generator (or OpenAI if `OPENAI_API_KEY` is present) requesting a JSON array of themes, problems, and evidence quotes.
-5. For each returned item, create an `Insight` object.
+4. Pass this to OpenAI with `response_format={ "type": "json_object" }` (or structured outputs) and `temperature=0.0`.
+5. The system prompt MUST enforce returning parseable JSON containing an array of objects with keys: `theme`, `problem`, `root_cause`, `evidence`, `frequency`. Do NOT allow free text responses.
+6. For each returned item, create an `Insight` object.
 6. Mark the queried Signals as `processing_status='insight_generated'`.
 </action>
 <acceptance_criteria>

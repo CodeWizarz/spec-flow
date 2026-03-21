@@ -3,9 +3,9 @@
 ## Technical Discoveries
 
 ### Backend Architecture
-1. **Data Model**: We need an `Insight` model in `apps/api/plane/signals/models.py`. It should have `workspace`, `title`, `problem_statement`, and an `evidence` JSONField (to store arrays of quotes/sources).
+1. **Data Model**: We need an `Insight` model in `apps/api/plane/signals/models.py`. It should have `workspace`, `theme`, `problem`, `root_cause`, `frequency`, and an `evidence` JSONField (to store arrays of quotes/sources).
 2. **Celery Task**: `apps/api/plane/bgtasks/signals_tasks.py` will host `generate_insights_task(workspace_id)`. It needs to fetch all `Signal` objects with `processing_status='processed'` (which means they have text but haven't been factored into insights yet, or we can use a new status `insight_generated`).
-3. **LLM Integration**: Use the `openai` Python package. The prompt must request JSON output matching the `Insight` model schema.
+3. **LLM Integration**: Use the `openai` Python package. The prompt must request strict JSON matching the fields `theme`, `problem`, `root_cause`, `evidence`, and `frequency`. Use `response_format={ "type": "json_object" }` or structured outputs, with temperature 0.0.
 4. **REST Endpoints**: Add `WorkspaceInsightViewSet` in `views.py` so the React frontend can fetch the generated insights. Also, add an `@action(detail=False, methods=['post'])` to `WorkspaceSignalViewSet` called `generate_insights` to trigger the celery task manually.
 
 ### Frontend Architecture
