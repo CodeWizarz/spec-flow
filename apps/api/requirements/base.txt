@@ -49,7 +49,7 @@ python-json-logger==4.0.0
 # html parser
 beautifulsoup4==4.12.3
 # analytics
-posthog==3.5.0
+posthog==7.9.12
 # crypto
 cryptography==46.0.5
 # html validator
