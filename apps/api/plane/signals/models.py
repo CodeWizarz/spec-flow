@@ -33,3 +33,17 @@ class Insight(WorkspaceBaseModel):
     def __str__(self):
         return f"{self.theme} ({self.frequency})"
 
+class GeneratedSpec(WorkspaceBaseModel):
+    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="specs")
+    title = models.CharField(max_length=255)
+    spec_json = models.JSONField(default=dict)
+
+    class Meta:
+        verbose_name = "Generated Spec"
+        verbose_name_plural = "Generated Specs"
+        db_table = "generated_specs"
+
+    def __str__(self):
+        return f"{self.title} - {self.workspace.name}"
+
+

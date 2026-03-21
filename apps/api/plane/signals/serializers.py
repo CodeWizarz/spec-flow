@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from plane.signals.models import Signal, Insight
+from plane.signals.models import Signal, Insight, GeneratedSpec
 
 class SignalSerializer(serializers.ModelSerializer):
     class Meta:
