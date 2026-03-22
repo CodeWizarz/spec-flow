@@ -43,3 +43,21 @@ class InsightSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
+class GeneratedSpecSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GeneratedSpec
+        fields = [
+            "id",
+            "workspace",
+            "title",
+            "spec_json",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = [
+            "id",
+            "workspace",
+            "created_at",
+            "updated_at",
+        ]
