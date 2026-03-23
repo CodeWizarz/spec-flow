@@ -1,23 +1,64 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router";
-import { InsightStore } from "@plane/shared-state";
-import { Button } from "@plane/ui";
 
-const insightStore = new InsightStore();
+const API_BASE = "/api";
+
+async function apiGet(url: string) {
+  const res = await fetch(`${API_BASE}${url}`, {
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function apiPost(url: string, body: Record<string, unknown> = {}) {
+  const res = await fetch(`${API_BASE}${url}`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
 
 export default function WorkspaceInsightsPage() {
   const { workspaceSlug } = useParams<{ workspaceSlug: string }>();
+  const [insights, setInsights] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (workspaceSlug) {
-      insightStore.fetchInsights(workspaceSlug);
+  const fetchInsights = useCallback(async () => {
+    if (!workspaceSlug) return;
+    setIsLoading(true);
+    try {
+      const data = await apiGet(`/workspaces/${workspaceSlug}/insights/`);
+      setInsights(Array.isArray(data) ? data : data.results ?? []);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   }, [workspaceSlug]);
 
+  useEffect(() => {
+    fetchInsights();
+  }, [fetchInsights]);
+
   const handleGenerate = async () => {
     if (!workspaceSlug) return;
-    await insightStore.generateInsights(workspaceSlug);
-    alert("Generation queued! Refresh in a few moments.");
+    setIsGenerating(true);
+    try {
+      await apiPost(`/workspaces/${workspaceSlug}/signals/generate/`);
+      alert("✅ Insight generation queued! Refreshing in 8 seconds...");
+      setTimeout(() => fetchInsights(), 8000);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -25,49 +66,68 @@ export default function WorkspaceInsightsPage() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-bold">AI Insights</h1>
-          <p className="text-gray-500">Discover recurring themes and root causes extracted from raw signals.</p>
+          <p className="text-gray-500 mt-1">Recurring themes and root causes extracted from raw signals.</p>
         </div>
-        <Button onClick={handleGenerate} disabled={insightStore.isGenerating}>
-          {insightStore.isGenerating ? "Generating..." : "Generate Insights"}
-        </Button>
+        <button
+          onClick={handleGenerate}
+          disabled={isGenerating}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+        >
+          {isGenerating ? "Generating..." : "⚡ Generate Insights"}
+        </button>
       </div>
 
-      {insightStore.error && <p className="text-red-500">{insightStore.error}</p>}
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
+          Error: {error}{" "}
+          <button onClick={() => setError(null)} className="ml-2 underline">
+            Dismiss
+          </button>
+        </div>
+      )}
 
-      {insightStore.isLoading ? (
-        <p>Loading insights...</p>
+      {isLoading ? (
+        <p className="text-gray-500">Loading insights...</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {insightStore.insights.map((insight) => (
-            <div key={insight.id} className="border p-4 rounded-lg shadow-sm flex flex-col gap-3">
+          {insights.map((insight) => (
+            <div key={insight.id} className="border p-5 rounded-xl shadow-sm flex flex-col gap-3 bg-white">
               <div className="flex justify-between items-start">
-                <h2 className="text-lg font-semibold">{insight.theme}</h2>
-                <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">{insight.frequency} occurrences</span>
-              </div>
-              
-              <div>
-                <h3 className="text-sm font-medium text-gray-500">Core Problem</h3>
-                <p className="text-gray-900 mt-1">{insight.problem}</p>
+                <h2 className="text-lg font-semibold text-gray-900">{insight.theme}</h2>
+                <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full whitespace-nowrap ml-2">
+                  {insight.frequency}× frequency
+                </span>
               </div>
 
               <div>
-                <h3 className="text-sm font-medium text-gray-500">Root Cause</h3>
-                <p className="text-gray-900 mt-1">{insight.root_cause}</p>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Core Problem</h3>
+                <p className="text-gray-900 text-sm">{insight.problem}</p>
               </div>
 
-              <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Evidence</h3>
-                <ul className="list-disc pl-5 space-y-1 text-sm bg-gray-50 p-3 rounded text-gray-700 italic">
-                  {Array.isArray(insight.evidence) && insight.evidence.map((quote: string, i: number) => (
-                    <li key={i}>"{quote}"</li>
-                  ))}
-                </ul>
-              </div>
+              {insight.root_cause && (
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Root Cause</h3>
+                  <p className="text-gray-900 text-sm">{insight.root_cause}</p>
+                </div>
+              )}
+
+              {Array.isArray(insight.evidence) && insight.evidence.length > 0 && (
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Evidence</h3>
+                  <ul className="list-disc pl-4 space-y-1 text-sm bg-gray-50 p-3 rounded-lg text-gray-700 italic">
+                    {(insight.evidence as string[]).map((q, i) => (
+                      <li key={i}>&ldquo;{q}&rdquo;</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
-          {insightStore.insights.length === 0 && (
-            <div className="col-span-full text-center py-12 text-gray-500">
-              No insights generated yet. Click Generate Insights to process active signals.
+
+          {insights.length === 0 && !isLoading && (
+            <div className="col-span-full text-center py-16 text-gray-400 border-2 border-dashed rounded-xl">
+              <p className="text-lg mb-2">No insights yet</p>
+              <p className="text-sm">Add signals first, then click &ldquo;Generate Insights&rdquo;.</p>
             </div>
           )}
         </div>

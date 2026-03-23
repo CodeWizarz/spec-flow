@@ -3,16 +3,17 @@
 # See the LICENSE file for details.
 
 # Module imports
-from ..base import BaseAPIView
-from plane.db.models.workspace import WorkspaceUserPreference
-from plane.app.serializers.workspace import WorkspaceUserPreferenceSerializer
-from plane.app.permissions import allow_permission, ROLE
-from plane.db.models import Workspace
-
+from rest_framework import status
 
 # Third party imports
 from rest_framework.response import Response
-from rest_framework import status
+
+from plane.app.permissions import ROLE, allow_permission
+from plane.app.serializers.workspace import WorkspaceUserPreferenceSerializer
+from plane.db.models import Workspace
+from plane.db.models.workspace import WorkspaceUserPreference
+
+from ..base import BaseAPIView
 
 
 class WorkspaceUserPreferenceViewSet(BaseAPIView):
@@ -50,6 +51,11 @@ class WorkspaceUserPreferenceViewSet(BaseAPIView):
                                     WorkspaceUserPreference.UserPreferenceKeys.DRAFTS,
                                     WorkspaceUserPreference.UserPreferenceKeys.YOUR_WORK,
                                     WorkspaceUserPreference.UserPreferenceKeys.STICKIES,
+                                    WorkspaceUserPreference.UserPreferenceKeys.SIGNALS,
+                                    WorkspaceUserPreference.UserPreferenceKeys.INSIGHTS,
+                                    WorkspaceUserPreference.UserPreferenceKeys.SPECS,
+                                    WorkspaceUserPreference.UserPreferenceKeys.MEMORY,
+                                    WorkspaceUserPreference.UserPreferenceKeys.HEALTH,
                                 ]
                                 else False
                             ),

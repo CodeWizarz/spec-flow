@@ -16,6 +16,33 @@ MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)  # noqa
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
+
+def _show_toolbar(request):
+    """Only activate the toolbar for HTML browser requests, never for JSON/API calls."""
+    from debug_toolbar.middleware import show_toolbar as _default
+
+    if not _default(request):
+        return False
+    # Don't instrument API or JSON requests - they have no HTML to inject into
+    accept = request.META.get("HTTP_ACCEPT", "")
+    if "text/html" not in accept:
+        return False
+    # Don't instrument XHR / fetch calls
+    if request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest":
+        return False
+    return True
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": _show_toolbar,
+    # Disable the redirect panel which can also cause I/O issues
+    "DISABLE_PANELS": {
+        "debug_toolbar.panels.redirects.RedirectsPanel",
+        "debug_toolbar.panels.profiling.ProfilingPanel",
+    },
+    "IS_RUNNING_TESTS": False,
+}
+
 # Only show emails in console don't send it to smtp
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 

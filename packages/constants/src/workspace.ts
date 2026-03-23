@@ -7,7 +7,14 @@
 import type { TStaticViewTypes, IWorkspaceSearchResults } from "@plane/types";
 import { EUserWorkspaceRoles } from "@plane/types";
 
-export const ORGANIZATION_SIZE: string[] = ["Just myself", "2-10", "11-50", "51-200", "201-500", "500+"];
+export const ORGANIZATION_SIZE: string[] = [
+  "Just myself",
+  "2-10",
+  "11-50",
+  "51-200",
+  "201-500",
+  "500+",
+];
 
 export const RESTRICTED_URLS: string[] = [
   "404",
@@ -198,12 +205,19 @@ export interface IWorkspaceSidebarNavigationItem {
   highlight: (pathname: string, url: string) => boolean;
 }
 
-export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS: Record<string, IWorkspaceSidebarNavigationItem> = {
+export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS: Record<
+  string,
+  IWorkspaceSidebarNavigationItem
+> = {
   views: {
     key: "views",
     labelTranslationKey: "views",
     href: `/workspace-views/all-issues/`,
-    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER, EUserWorkspaceRoles.GUEST],
+    access: [
+      EUserWorkspaceRoles.ADMIN,
+      EUserWorkspaceRoles.MEMBER,
+      EUserWorkspaceRoles.GUEST,
+    ],
     highlight: (pathname: string, url: string) => pathname.includes(url),
   },
   analytics: {
@@ -220,27 +234,79 @@ export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS: Record<string, IWorkspa
     access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
     highlight: (pathname: string, url: string) => pathname.includes(url),
   },
+  signals: {
+    key: "signals",
+    labelTranslationKey: "signals",
+    href: `/signals`,
+    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
+    highlight: (pathname: string, url: string) => pathname.includes(url),
+  },
+  insights: {
+    key: "insights",
+    labelTranslationKey: "insights",
+    href: `/insights`,
+    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
+    highlight: (pathname: string, url: string) => pathname.includes(url),
+  },
+  specs: {
+    key: "specs",
+    labelTranslationKey: "specs",
+    href: `/specs`,
+    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
+    highlight: (pathname: string, url: string) => pathname.includes(url),
+  },
+  memory: {
+    key: "memory",
+    labelTranslationKey: "memory",
+    href: `/memory`,
+    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
+    highlight: (pathname: string, url: string) => pathname.includes(url),
+  },
+  health: {
+    key: "health",
+    labelTranslationKey: "health",
+    href: `/health`,
+    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
+    highlight: (pathname: string, url: string) => pathname.includes(url),
+  },
 };
 
-export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] = [
-  WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["views"],
-  WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["analytics"],
-  WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["archives"],
-];
+export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] =
+  [
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["views"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["analytics"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["archives"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["signals"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["insights"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["specs"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["memory"],
+    WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["health"],
+  ];
 
-export const WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS: Record<string, IWorkspaceSidebarNavigationItem> = {
+export const WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS: Record<
+  string,
+  IWorkspaceSidebarNavigationItem
+> = {
   home: {
     key: "home",
     labelTranslationKey: "home.title",
     href: `/`,
-    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER, EUserWorkspaceRoles.GUEST],
+    access: [
+      EUserWorkspaceRoles.ADMIN,
+      EUserWorkspaceRoles.MEMBER,
+      EUserWorkspaceRoles.GUEST,
+    ],
     highlight: (pathname: string, url: string) => pathname === url,
   },
   inbox: {
     key: "inbox",
     labelTranslationKey: "notification.label",
     href: `/notifications/`,
-    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER, EUserWorkspaceRoles.GUEST],
+    access: [
+      EUserWorkspaceRoles.ADMIN,
+      EUserWorkspaceRoles.MEMBER,
+      EUserWorkspaceRoles.GUEST,
+    ],
     highlight: (pathname: string, url: string) => pathname.includes(url),
   },
   "your-work": {
@@ -254,7 +320,11 @@ export const WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS: Record<string, IWorkspac
     key: "stickies",
     labelTranslationKey: "sidebar.stickies",
     href: `/stickies/`,
-    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER, EUserWorkspaceRoles.GUEST],
+    access: [
+      EUserWorkspaceRoles.ADMIN,
+      EUserWorkspaceRoles.MEMBER,
+      EUserWorkspaceRoles.GUEST,
+    ],
     highlight: (pathname: string, url: string) => pathname.includes(url),
   },
   drafts: {
@@ -268,18 +338,20 @@ export const WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS: Record<string, IWorkspac
     key: "projects",
     labelTranslationKey: "projects",
     href: `/projects/`,
-    access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER, EUserWorkspaceRoles.GUEST],
+    access: [
+      EUserWorkspaceRoles.ADMIN,
+      EUserWorkspaceRoles.MEMBER,
+      EUserWorkspaceRoles.GUEST,
+    ],
     highlight: (pathname: string, url: string) => pathname === url,
   },
 };
 
-export const WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] = [
-  WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS["home"],
-];
+export const WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] =
+  [WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS["home"]];
 
-export const WORKSPACE_SIDEBAR_STATIC_PINNED_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] = [
-  WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS["projects"],
-];
+export const WORKSPACE_SIDEBAR_STATIC_PINNED_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] =
+  [WORKSPACE_SIDEBAR_STATIC_NAVIGATION_ITEMS["projects"]];
 
 export const IS_FAVORITE_MENU_OPEN = "is_favorite_menu_open";
 export const WORKSPACE_DEFAULT_SEARCH_RESULT: IWorkspaceSearchResults = {

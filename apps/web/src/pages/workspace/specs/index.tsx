@@ -1,72 +1,94 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router";
-import { SpecStore } from "@plane/shared-state";
-import { Button } from "@plane/ui";
 
-const specStore = new SpecStore();
+const API_BASE = "/api";
+
+async function apiGet(url: string) {
+  const res = await fetch(`${API_BASE}${url}`, {
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function apiPost(url: string, body: Record<string, unknown> = {}) {
+  const res = await fetch(`${API_BASE}${url}`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+function downloadMarkdown(spec: any) {
+  const j = spec.spec_json || {};
+  let md = `# ${j.feature_name || spec.title}\n\n`;
+  md += `## Problem\n${j.problem || ""}\n\n`;
+  md += `## User Story\n${j.user_story || ""}\n\n`;
+  md += `## Solution\n${j.solution || ""}\n\n`;
+  if (j.ui_changes?.length) { md += `## UI Changes\n${(j.ui_changes as string[]).map((c) => `- ${c}`).join("\n")}\n\n`; }
+  if (j.data_model_changes?.length) { md += `## Data Model\n${(j.data_model_changes as string[]).map((c) => `- ${c}`).join("\n")}\n\n`; }
+  if (j.workflow_changes?.length) { md += `## Workflow\n${(j.workflow_changes as string[]).map((c) => `- ${c}`).join("\n")}\n\n`; }
+  if (j.tasks?.length) {
+    md += `## Agent Tasks\n\n`;
+    (j.tasks as any[]).forEach((t, i) => {
+      md += `### Task ${i + 1}\n<read_first>\n`;
+      (t.read_first || []).forEach((f: string) => (md += `- ${f}\n`));
+      md += `</read_first>\n<action>\n`;
+      (t.action || []).forEach((a: string) => (md += `- ${a}\n`));
+      md += `</action>\n\n`;
+    });
+  }
+  const blob = new Blob([md], { type: "text/markdown" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${String(spec.title || "spec").replace(/\s+/g, "_")}.md`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 export default function WorkspaceSpecsPage() {
   const { workspaceSlug } = useParams<{ workspaceSlug: string }>();
+  const [specs, setSpecs] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (workspaceSlug) {
-      specStore.fetchSpecs(workspaceSlug);
+  const fetchSpecs = useCallback(async () => {
+    if (!workspaceSlug) return;
+    setIsLoading(true);
+    try {
+      const data = await apiGet(`/workspaces/${workspaceSlug}/specs/`);
+      setSpecs(Array.isArray(data) ? data : data.results ?? []);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
     }
   }, [workspaceSlug]);
 
+  useEffect(() => {
+    fetchSpecs();
+  }, [fetchSpecs]);
+
   const handleGenerate = async () => {
     if (!workspaceSlug) return;
-    await specStore.generateSpec(workspaceSlug);
-    alert("Spec generation queued based on Top 20 recent insights. Refresh soon.");
-  };
-
-  const downloadMarkdown = (spec: any) => {
-    const json = spec.spec_json || {};
-    let md = `# ${json.feature_name || spec.title}\\n\\n`;
-    md += `## Problem\\n${json.problem || ""}\\n\\n`;
-    md += `## User Story\\n${json.user_story || ""}\\n\\n`;
-    md += `## Proposed Solution\\n${json.solution || ""}\\n\\n`;
-
-    if (json.ui_changes?.length) {
-      md += `## UI Changes\\n`;
-      json.ui_changes.forEach((c: string) => md += `- ${c}\\n`);
-      md += `\\n`;
+    setIsGenerating(true);
+    try {
+      await apiPost(`/workspaces/${workspaceSlug}/specs/generate/`);
+      alert("✅ Spec generation queued based on your latest insights! Refreshing in 10 seconds...");
+      setTimeout(() => fetchSpecs(), 10000);
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsGenerating(false);
     }
-
-    if (json.data_model_changes?.length) {
-      md += `## Data Model Changes\\n`;
-      json.data_model_changes.forEach((c: string) => md += `- ${c}\\n`);
-      md += `\\n`;
-    }
-
-    if (json.workflow_changes?.length) {
-      md += `## Workflow Changes\\n`;
-      json.workflow_changes.forEach((c: string) => md += `- ${c}\\n`);
-      md += `\\n`;
-    }
-
-    if (json.tasks?.length) {
-      md += `## Agent Development Tasks\\n\\n`;
-      json.tasks.forEach((task: any, index: number) => {
-        md += `### Task ${index + 1}\\n`;
-        md += `<read_first>\\n`;
-        (task.read_first || []).forEach((f: string) => md += `- ${f}\\n`);
-        md += `</read_first>\\n`;
-        md += `<action>\\n`;
-        (task.action || []).forEach((a: string) => md += `- ${a}\\n`);
-        md += `</action>\\n\\n`;
-      });
-    }
-
-    const blob = new Blob([md], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${spec.title.replace(/\\s+/g, "_")}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
   };
 
   return (
@@ -74,82 +96,93 @@ export default function WorkspaceSpecsPage() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-bold">Generated AI Specs</h1>
-          <p className="text-gray-500">Structured execution plans ready for autonomous coding agents.</p>
+          <p className="text-gray-500 mt-1">Structured execution plans ready for developers and AI agents.</p>
         </div>
-        <Button onClick={handleGenerate} disabled={specStore.isGenerating}>
-          {specStore.isGenerating ? "Generating..." : "Generate from Insights"}
-        </Button>
+        <button
+          onClick={handleGenerate}
+          disabled={isGenerating}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+        >
+          {isGenerating ? "Generating..." : "🔥 Generate from Insights"}
+        </button>
       </div>
 
-      {specStore.error && <p className="text-red-500">{specStore.error}</p>}
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
+          Error: {error}{" "}
+          <button onClick={() => setError(null)} className="ml-2 underline">Dismiss</button>
+        </div>
+      )}
 
-      {specStore.isLoading ? (
-        <p>Loading specs...</p>
+      {isLoading ? (
+        <p className="text-gray-500">Loading specs...</p>
       ) : (
         <div className="space-y-8">
-          {specStore.specs.map((spec) => {
-            const json = spec.spec_json || {};
+          {specs.map((spec) => {
+            const j = spec.spec_json || {};
             return (
               <div key={spec.id} className="border p-6 rounded-xl shadow-sm bg-white">
                 <div className="flex justify-between items-start mb-4 border-b pb-4">
                   <div>
-                    <h2 className="text-xl font-bold">{json.feature_name || spec.title}</h2>
-                    <p className="text-sm text-gray-500 mt-1">Generated: {new Date(spec.created_at).toLocaleString()}</p>
+                    <h2 className="text-xl font-bold text-gray-900">{j.feature_name || spec.title}</h2>
+                    <p className="text-xs text-gray-400 mt-1">Generated: {new Date(spec.created_at).toLocaleString()}</p>
                   </div>
-                  <Button onClick={() => downloadMarkdown(spec)} variant="outline">
-                    Download .md
-                  </Button>
+                  <button
+                    onClick={() => downloadMarkdown(spec)}
+                    className="px-3 py-1.5 border rounded-lg text-sm hover:bg-gray-50 transition-colors"
+                  >
+                    ↓ Download .md
+                  </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                   <div>
-                    <h3 className="font-semibold text-gray-700">Problem</h3>
-                    <p className="text-sm mt-1">{json.problem}</p>
-                    <h3 className="font-semibold text-gray-700 mt-4">User Story</h3>
-                    <p className="text-sm italic mt-1">{json.user_story}</p>
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Problem</h3>
+                    <p className="text-sm text-gray-800">{j.problem}</p>
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-4 mb-1">User Story</h3>
+                    <p className="text-sm italic text-gray-700">{j.user_story}</p>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-700">Solution</h3>
-                    <p className="text-sm mt-1">{json.solution}</p>
+                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Solution</h3>
+                    <p className="text-sm text-gray-800">{j.solution}</p>
                   </div>
                 </div>
 
-                <div className="mt-6">
-                  <h3 className="font-semibold text-gray-700 mb-2">Architecture Changes</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                    <div className="bg-gray-50 p-3 rounded">
-                      <span className="font-medium text-blue-800 block mb-1">UI</span>
-                      <ul className="list-disc pl-4 space-y-1">
-                        {(json.ui_changes || []).map((c: string, i: number) => <li key={i}>{c}</li>)}
-                      </ul>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded">
-                      <span className="font-medium text-green-800 block mb-1">Data Model</span>
-                      <ul className="list-disc pl-4 space-y-1">
-                        {(json.data_model_changes || []).map((c: string, i: number) => <li key={i}>{c}</li>)}
-                      </ul>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded">
-                      <span className="font-medium text-purple-800 block mb-1">Workflow</span>
-                      <ul className="list-disc pl-4 space-y-1">
-                        {(json.workflow_changes || []).map((c: string, i: number) => <li key={i}>{c}</li>)}
-                      </ul>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mb-6">
+                  <div className="bg-blue-50 p-3 rounded-lg">
+                    <span className="font-semibold text-blue-800 block mb-2 text-xs uppercase">UI Changes</span>
+                    <ul className="list-disc pl-3 space-y-1 text-blue-900">
+                      {((j.ui_changes || []) as string[]).map((c, i) => <li key={i}>{c}</li>)}
+                    </ul>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg">
+                    <span className="font-semibold text-green-800 block mb-2 text-xs uppercase">Data Model</span>
+                    <ul className="list-disc pl-3 space-y-1 text-green-900">
+                      {((j.data_model_changes || []) as string[]).map((c, i) => <li key={i}>{c}</li>)}
+                    </ul>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded-lg">
+                    <span className="font-semibold text-purple-800 block mb-2 text-xs uppercase">Workflow</span>
+                    <ul className="list-disc pl-3 space-y-1 text-purple-900">
+                      {((j.workflow_changes || []) as string[]).map((c, i) => <li key={i}>{c}</li>)}
+                    </ul>
                   </div>
                 </div>
 
-                <div className="mt-6 border-t pt-4">
-                  <h3 className="font-semibold text-gray-700 mb-2">Agent Tasks ({json.tasks?.length || 0})</h3>
-                  <div className="space-y-3">
-                    {(json.tasks || []).map((task: any, index: number) => (
-                      <div key={index} className="bg-gray-100 p-3 rounded text-sm font-mono">
-                        <div className="text-gray-500 mb-1">&lt;read_first&gt;</div>
-                        <ul className="pl-4 text-orange-700 list-disc">
-                          {(task.read_first || []).map((f: string, i: number) => <li key={i}>{f}</li>)}
+                <div className="border-t pt-4">
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                    Agent Tasks ({(j.tasks as any[] | undefined)?.length ?? 0})
+                  </h3>
+                  <div className="space-y-2">
+                    {((j.tasks || []) as any[]).map((task, i) => (
+                      <div key={i} className="bg-gray-50 p-3 rounded-lg text-xs font-mono border">
+                        <div className="text-gray-400 mb-1">&lt;read_first&gt;</div>
+                        <ul className="pl-3 text-orange-700 list-disc mb-2">
+                          {((task.read_first || []) as string[]).map((f, fi) => <li key={fi}>{f}</li>)}
                         </ul>
-                        <div className="text-gray-500 mb-1 mt-2">&lt;action&gt;</div>
-                        <ul className="pl-4 text-blue-700 list-disc">
-                          {(task.action || []).map((a: string, i: number) => <li key={i}>{a}</li>)}
+                        <div className="text-gray-400 mb-1">&lt;action&gt;</div>
+                        <ul className="pl-3 text-blue-700 list-disc">
+                          {((task.action || []) as string[]).map((a, ai) => <li key={ai}>{a}</li>)}
                         </ul>
                       </div>
                     ))}
@@ -158,9 +191,11 @@ export default function WorkspaceSpecsPage() {
               </div>
             );
           })}
-          {specStore.specs.length === 0 && (
-            <div className="text-center py-12 text-gray-500 border rounded-xl">
-              No specs generated yet. Click Generate to convert insights into specifications.
+
+          {specs.length === 0 && !isLoading && (
+            <div className="text-center py-16 text-gray-400 border-2 border-dashed rounded-xl">
+              <p className="text-lg mb-2">No specs yet</p>
+              <p className="text-sm">Go to Insights → Generate Insights first, then come here and click &ldquo;Generate from Insights&rdquo;.</p>
             </div>
           )}
         </div>

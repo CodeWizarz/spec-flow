@@ -60,13 +60,17 @@ export default {
   assigned: "Assigned",
   created: "Created",
   subscribed: "Subscribed",
-  you_do_not_have_the_permission_to_access_this_page: "You do not have the permission to access this page.",
-  something_went_wrong_please_try_again: "Something went wrong. Please try again.",
+  you_do_not_have_the_permission_to_access_this_page:
+    "You do not have the permission to access this page.",
+  something_went_wrong_please_try_again:
+    "Something went wrong. Please try again.",
   load_more: "Load more",
-  select_or_customize_your_interface_color_scheme: "Select or customize your interface color scheme.",
+  select_or_customize_your_interface_color_scheme:
+    "Select or customize your interface color scheme.",
   timezone_setting: "Current timezone setting.",
   language_setting: "Choose the language used in the user interface.",
-  settings_moved_to_preferences: "Timezone & Language settings have been moved to preferences.",
+  settings_moved_to_preferences:
+    "Timezone & Language settings have been moved to preferences.",
   go_to_preferences: "Go to preferences",
   theme: "Theme",
   system_preference: "System preference",
@@ -83,7 +87,8 @@ export default {
   sidebar_background_color: "Sidebar background color",
   sidebar_text_color: "Sidebar text color",
   set_theme: "Set theme",
-  enter_a_valid_hex_code_of_6_characters: "Enter a valid hex code of 6 characters",
+  enter_a_valid_hex_code_of_6_characters:
+    "Enter a valid hex code of 6 characters",
   background_color_is_required: "Background color is required",
   text_color_is_required: "Text color is required",
   primary_color_is_required: "Primary color is required",
@@ -95,20 +100,25 @@ export default {
   email_notifications: "Email notifications",
   stay_in_the_loop_on_issues_you_are_subscribed_to_enable_this_to_get_notified:
     "Stay in the loop on Work items you are subscribed to. Enable this to get notified.",
-  email_notification_setting_updated_successfully: "Email notification setting updated successfully",
-  failed_to_update_email_notification_setting: "Failed to update email notification setting",
+  email_notification_setting_updated_successfully:
+    "Email notification setting updated successfully",
+  failed_to_update_email_notification_setting:
+    "Failed to update email notification setting",
   notify_me_when: "Notify me when",
   property_changes: "Property changes",
   property_changes_description:
     "Notify me when work items' properties like assignees, priority, estimates or anything else changes.",
   state_change: "State change",
-  state_change_description: "Notify me when the work items moves to a different state",
+  state_change_description:
+    "Notify me when the work items moves to a different state",
   issue_completed: "Work item completed",
   issue_completed_description: "Notify me only when a work item is completed",
   comments: "Comments",
-  comments_description: "Notify me when someone leaves a comment on the work item",
+  comments_description:
+    "Notify me when someone leaves a comment on the work item",
   mentions: "Mentions",
-  mentions_description: "Notify me only when someone mentions me in the comments or description",
+  mentions_description:
+    "Notify me only when someone mentions me in the comments or description",
   old_password: "Old password",
   general_settings: "General settings",
   sign_out: "Sign out",
@@ -116,7 +126,8 @@ export default {
   active_cycles: "Active cycles",
   active_cycles_description:
     "Monitor cycles across projects, track high-priority work items, and zoom in cycles that need attention.",
-  on_demand_snapshots_of_all_your_cycles: "On-demand snapshots of all your cycles",
+  on_demand_snapshots_of_all_your_cycles:
+    "On-demand snapshots of all your cycles",
   upgrade: "Upgrade",
   "10000_feet_view": "10,000-feet view of all active cycles.",
   "10000_feet_view_description":
@@ -147,6 +158,11 @@ export default {
   views: "Views",
   workspace: "Workspace",
   archives: "Archives",
+  signals: "Signals",
+  insights: "Insights",
+  specs: "Specs",
+  memory: "Memory",
+  health: "Health",
   settings: "Settings",
   failed_to_move_favorite: "Failed to move favorite",
   favorites: "Favorites",
@@ -166,23 +182,31 @@ export default {
   link_copied: "Link copied",
   add_project: "Add project",
   create_project: "Create project",
-  failed_to_remove_project_from_favorites: "Couldn't remove the project from favorites. Please try again.",
+  failed_to_remove_project_from_favorites:
+    "Couldn't remove the project from favorites. Please try again.",
   project_created_successfully: "Project created successfully",
-  project_created_successfully_description: "Project created successfully. You can now start adding work items to it.",
+  project_created_successfully_description:
+    "Project created successfully. You can now start adding work items to it.",
   project_name_already_taken: "The project name is already taken.",
   project_identifier_already_taken: "The project identifier is already taken.",
   project_cover_image_alt: "Project cover image",
   name_is_required: "Name is required",
-  title_should_be_less_than_255_characters: "Title should be less than 255 characters",
+  title_should_be_less_than_255_characters:
+    "Title should be less than 255 characters",
   project_name: "Project name",
-  project_id_must_be_at_least_1_character: "Project ID must at least be of 1 character",
-  project_id_must_be_at_most_5_characters: "Project ID must at most be of 5 characters",
+  project_id_must_be_at_least_1_character:
+    "Project ID must at least be of 1 character",
+  project_id_must_be_at_most_5_characters:
+    "Project ID must at most be of 5 characters",
   project_id: "Project ID",
-  project_id_tooltip_content: "Helps you identify work items in the project uniquely. Max 10 characters.",
+  project_id_tooltip_content:
+    "Helps you identify work items in the project uniquely. Max 10 characters.",
   description_placeholder: "Description",
-  only_alphanumeric_non_latin_characters_allowed: "Only Alphanumeric & Non-latin characters are allowed.",
+  only_alphanumeric_non_latin_characters_allowed:
+    "Only Alphanumeric & Non-latin characters are allowed.",
   project_id_is_required: "Project ID is required",
-  project_id_allowed_char: "Only Alphanumeric & Non-latin characters are allowed.",
+  project_id_allowed_char:
+    "Only Alphanumeric & Non-latin characters are allowed.",
   project_id_min_char: "Project ID must at least be of 1 character",
   project_id_max_char: "Project ID must at most be of 10 characters",
   project_description_placeholder: "Enter project description",
@@ -192,15 +216,18 @@ export default {
   private: "Private",
   public: "Public",
   accessible_only_by_invite: "Accessible only by invite",
-  anyone_in_the_workspace_except_guests_can_join: "Anyone in the workspace except Guests can join",
+  anyone_in_the_workspace_except_guests_can_join:
+    "Anyone in the workspace except Guests can join",
   creating: "Creating",
   creating_project: "Creating project",
   adding_project_to_favorites: "Adding project to favorites",
   project_added_to_favorites: "Project added to favorites",
-  couldnt_add_the_project_to_favorites: "Couldn't add the project to favorites. Please try again.",
+  couldnt_add_the_project_to_favorites:
+    "Couldn't add the project to favorites. Please try again.",
   removing_project_from_favorites: "Removing project from favorites",
   project_removed_from_favorites: "Project removed from favorites",
-  couldnt_remove_the_project_from_favorites: "Couldn't remove the project from favorites. Please try again.",
+  couldnt_remove_the_project_from_favorites:
+    "Couldn't remove the project from favorites. Please try again.",
   add_to_favorites: "Add to favorites",
   remove_from_favorites: "Remove from favorites",
   publish_project: "Publish project",
@@ -222,10 +249,14 @@ export default {
   projects_and_issues_description: "Toggle these on or off this project.",
   cycles_description:
     "Timebox work per project and adjust the time period as needed. One cycle can be 2 weeks, the next 1 week.",
-  modules_description: "Organize work into sub-projects with dedicated leads and assignees.",
-  views_description: "Save custom sorts, filters, and display options or share them with your team.",
-  pages_description: "Create and edit free-form content; notes, docs, anything.",
-  intake_description: "Let non-members share bugs, feedback, and suggestions; without disrupting your workflow.",
+  modules_description:
+    "Organize work into sub-projects with dedicated leads and assignees.",
+  views_description:
+    "Save custom sorts, filters, and display options or share them with your team.",
+  pages_description:
+    "Create and edit free-form content; notes, docs, anything.",
+  intake_description:
+    "Let non-members share bugs, feedback, and suggestions; without disrupting your workflow.",
   time_tracking_description: "Log time spent on work items and projects.",
   work_management_description: "Manage your work and projects with ease.",
   documentation: "Documentation",
@@ -235,7 +266,8 @@ export default {
   keyboard_shortcuts: "Keyboard shortcuts",
   whats_new: "What's new?",
   version: "Version",
-  we_are_having_trouble_fetching_the_updates: "We are having trouble fetching the updates.",
+  we_are_having_trouble_fetching_the_updates:
+    "We are having trouble fetching the updates.",
   our_changelogs: "our changelogs",
   for_the_latest_updates: "for the latest updates.",
   please_visit: "Please visit",
@@ -244,9 +276,12 @@ export default {
   support: "Support",
   forum: "Forum",
   powered_by_plane_pages: "Powered by Plane Pages",
-  please_select_at_least_one_invitation: "Please select at least one invitation.",
-  please_select_at_least_one_invitation_description: "Please select at least one invitation to join the workspace.",
-  we_see_that_someone_has_invited_you_to_join_a_workspace: "We see that someone has invited you to join a workspace",
+  please_select_at_least_one_invitation:
+    "Please select at least one invitation.",
+  please_select_at_least_one_invitation_description:
+    "Please select at least one invitation to join the workspace.",
+  we_see_that_someone_has_invited_you_to_join_a_workspace:
+    "We see that someone has invited you to join a workspace",
   join_a_workspace: "Join a workspace",
   we_see_that_someone_has_invited_you_to_join_a_workspace_description:
     "We see that someone has invited you to join a workspace",
@@ -254,7 +289,8 @@ export default {
   accept_and_join: "Accept & Join",
   go_home: "Go Home",
   no_pending_invites: "No pending invites",
-  you_can_see_here_if_someone_invites_you_to_a_workspace: "You can see here if someone invites you to a workspace",
+  you_can_see_here_if_someone_invites_you_to_a_workspace:
+    "You can see here if someone invites you to a workspace",
   back_to_home: "Back to home",
   workspace_name: "workspace-name",
   deactivate_your_account: "Deactivate your account",
@@ -276,7 +312,8 @@ export default {
   update: "Update",
   updating: "Updating",
   create_new_issue: "Create new work item",
-  editor_is_not_ready_to_discard_changes: "Editor is not ready to discard changes",
+  editor_is_not_ready_to_discard_changes:
+    "Editor is not ready to discard changes",
   failed_to_move_issue_to_project: "Failed to move work item to project",
   create_more: "Create more",
   add_to_project: "Add to project",
@@ -357,7 +394,8 @@ export default {
   re_generate_key: "Re-generate key",
   export: "Export",
   member: "{count, plural, one{# member} other{# members}}",
-  new_password_must_be_different_from_old_password: "New password must be different from old password",
+  new_password_must_be_different_from_old_password:
+    "New password must be different from old password",
   edited: "edited",
   bot: "Bot",
   settings_description:
@@ -428,7 +466,8 @@ export default {
       },
       widgets: {
         title: "It's Quiet Without Widgets, Turn Them On",
-        description: "It looks like all your widgets are turned off. Enable them\nnow to enhance your experience!",
+        description:
+          "It looks like all your widgets are turned off. Enable them\nnow to enhance your experience!",
         primary_button: {
           text: "Manage widgets",
         },
@@ -818,8 +857,10 @@ export default {
       label: "Add work item",
       cycle: {
         failed: "Work item could not be added to the cycle. Please try again.",
-        success: "{count, plural, one {Work item} other {Work items}} added to the cycle successfully.",
-        loading: "Adding {count, plural, one {work item} other {work items}} to the cycle",
+        success:
+          "{count, plural, one {Work item} other {Work items}} added to the cycle successfully.",
+        loading:
+          "Adding {count, plural, one {work item} other {work items}} to the cycle",
       },
       assignee: "Add assignees",
       start_date: "Add start date",
@@ -835,12 +876,14 @@ export default {
       cycle: {
         loading: "Removing work item from the cycle",
         success: "Work item removed from the cycle successfully.",
-        failed: "Work item could not be removed from the cycle. Please try again.",
+        failed:
+          "Work item could not be removed from the cycle. Please try again.",
       },
       module: {
         loading: "Removing work item from the module",
         success: "Work item removed from the module successfully.",
-        failed: "Work item could not be removed from the module. Please try again.",
+        failed:
+          "Work item could not be removed from the module. Please try again.",
       },
       parent: {
         label: "Remove parent work item",
@@ -921,7 +964,8 @@ export default {
     empty_state: {
       issue_detail: {
         title: "Work item does not exist",
-        description: "The work item you are looking for does not exist, has been archived, or has been deleted.",
+        description:
+          "The work item you are looking for does not exist, has been archived, or has been deleted.",
         primary_button: {
           text: "View other work items",
         },
@@ -1005,12 +1049,14 @@ export default {
     },
     empty_state: {
       sub_list_filters: {
-        title: "You don't have sub-work items that match the filters you've applied.",
+        title:
+          "You don't have sub-work items that match the filters you've applied.",
         description: "To see all sub-work items, clear all applied filters.",
         action: "Clear filters",
       },
       list_filters: {
-        title: "You don't have work items that match the filters you've applied.",
+        title:
+          "You don't have work items that match the filters you've applied.",
         description: "To see all work items, clear all applied filters.",
         action: "Clear filters",
       },
@@ -1099,11 +1145,13 @@ export default {
       },
       sidebar_closed_tab: {
         title: "No closed work items",
-        description: "All the work items whether accepted or declined can be found here.",
+        description:
+          "All the work items whether accepted or declined can be found here.",
       },
       sidebar_filter: {
         title: "No matching work items",
-        description: "No work item matches filter applied in intake. Create a new work item.",
+        description:
+          "No work item matches filter applied in intake. Create a new work item.",
       },
       detail: {
         title: "Select a work item to view its details.",
@@ -1136,9 +1184,11 @@ export default {
         request_button: "Request instance admin",
       },
       validation: {
-        name_alphanumeric: "Workspaces names can contain only (' '), ('-'), ('_') and alphanumeric characters.",
+        name_alphanumeric:
+          "Workspaces names can contain only (' '), ('-'), ('_') and alphanumeric characters.",
         name_length: "Limit your name to 80 characters.",
-        url_alphanumeric: "URLs can contain only ('-') and alphanumeric characters.",
+        url_alphanumeric:
+          "URLs can contain only ('-') and alphanumeric characters.",
         url_length: "Limit your URL to 48 characters.",
         url_already_taken: "Workspace URL is already taken!",
       },
@@ -1172,7 +1222,8 @@ export default {
           text: "Build your first project",
           comic: {
             title: "Everything starts with a project in Plane",
-            description: "A project could be a product's roadmap, a marketing campaign, or launching a new car.",
+            description:
+              "A project could be a product's roadmap, a marketing campaign, or launching a new car.",
           },
         },
       },
@@ -1194,15 +1245,18 @@ export default {
     },
     work_items_closed_in_a_year: {
       title: "Work items closed in a year",
-      empty_state: "Close work items to view analysis of the same in the form of a graph.",
+      empty_state:
+        "Close work items to view analysis of the same in the form of a graph.",
     },
     most_work_items_created: {
       title: "Most work items created",
-      empty_state: "Co-workers and the number of work items created by them appears here.",
+      empty_state:
+        "Co-workers and the number of work items created by them appears here.",
     },
     most_work_items_closed: {
       title: "Most work items closed",
-      empty_state: "Co-workers and the number of work items closed by them appears here.",
+      empty_state:
+        "Co-workers and the number of work items closed by them appears here.",
     },
     tabs: {
       scope_and_demand: "Scope and Demand",
@@ -1223,18 +1277,22 @@ export default {
     empty_state: {
       project_insights: {
         title: "No data yet",
-        description: "Work items assigned to you, broken down by state, will show up here.",
+        description:
+          "Work items assigned to you, broken down by state, will show up here.",
       },
       created_vs_resolved: {
         title: "No data yet",
-        description: "Work items created and resolved over time will show up here.",
+        description:
+          "Work items created and resolved over time will show up here.",
       },
       customized_insights: {
         title: "No data yet",
-        description: "Work items assigned to you, broken down by state, will show up here.",
+        description:
+          "Work items assigned to you, broken down by state, will show up here.",
       },
       general: {
-        title: "Track progress, workloads, and allocations. Spot trends, remove blockers, and move work faster",
+        title:
+          "Track progress, workloads, and allocations. Spot trends, remove blockers, and move work faster",
         description:
           "See scope versus demand, estimates, and scope creep. Get performance by team members and teams, and make sure your project runs on time.",
         primary_button: {
@@ -1299,27 +1357,32 @@ export default {
           text: "Start your first project",
           comic: {
             title: "Everything starts with a project in Plane",
-            description: "A project could be a product's roadmap, a marketing campaign, or launching a new car.",
+            description:
+              "A project could be a product's roadmap, a marketing campaign, or launching a new car.",
           },
         },
       },
       no_projects: {
         title: "No project",
-        description: "To create work items or manage your work, you need to create a project or be a part of one.",
+        description:
+          "To create work items or manage your work, you need to create a project or be a part of one.",
         primary_button: {
           text: "Start your first project",
           comic: {
             title: "Everything starts with a project in Plane",
-            description: "A project could be a product's roadmap, a marketing campaign, or launching a new car.",
+            description:
+              "A project could be a product's roadmap, a marketing campaign, or launching a new car.",
           },
         },
       },
       filter: {
         title: "No matching projects",
-        description: "No projects detected with the matching criteria. \n Create a new project instead.",
+        description:
+          "No projects detected with the matching criteria. \n Create a new project instead.",
       },
       search: {
-        description: "No projects detected with the matching criteria.\nCreate a new project instead",
+        description:
+          "No projects detected with the matching criteria.\nCreate a new project instead",
       },
     },
   },
@@ -1328,7 +1391,8 @@ export default {
     empty_state: {
       "all-issues": {
         title: "No work items in the project",
-        description: "First project done! Now, slice your work into trackable pieces with work items. Let's go!",
+        description:
+          "First project done! Now, slice your work into trackable pieces with work items. Let's go!",
         primary_button: {
           text: "Create new work item",
         },
@@ -1342,18 +1406,21 @@ export default {
       },
       created: {
         title: "No work items yet",
-        description: "All work items created by you come here, track them here directly.",
+        description:
+          "All work items created by you come here, track them here directly.",
         primary_button: {
           text: "Create new work item",
         },
       },
       subscribed: {
         title: "No work items yet",
-        description: "Subscribe to work items you are interested in, track all of them here.",
+        description:
+          "Subscribe to work items you are interested in, track all of them here.",
       },
       "custom-view": {
         title: "No work items yet",
-        description: "Work items that applies to the filters, track all of them here.",
+        description:
+          "Work items that applies to the filters, track all of them here.",
       },
     },
     delete_view: {
@@ -1366,7 +1433,8 @@ export default {
     profile: {
       change_email_modal: {
         title: "Change email",
-        description: "Enter a new email address to receive a verification link.",
+        description:
+          "Enter a new email address to receive a verification link.",
         toasts: {
           success_title: "Success!",
           success_message: "Email updated successfully. Please sign in again.",
@@ -1408,18 +1476,21 @@ export default {
     },
     notifications: {
       heading: "Email notifications",
-      description: "Stay in the loop on Work items you are subscribed to. Enable this to get notified.",
+      description:
+        "Stay in the loop on Work items you are subscribed to. Enable this to get notified.",
     },
     security: {
       heading: "Security",
     },
     api_tokens: {
       heading: "Personal Access Tokens",
-      description: "Generate secure API tokens to integrate your data with external systems and applications.",
+      description:
+        "Generate secure API tokens to integrate your data with external systems and applications.",
     },
     activity: {
       heading: "Activity",
-      description: "Track your recent actions and changes across all projects and work items.",
+      description:
+        "Track your recent actions and changes across all projects and work items.",
     },
   },
   workspace_settings: {
@@ -1445,7 +1516,8 @@ export default {
         delete_btn: "Delete this workspace",
         delete_modal: {
           title: "Are you sure you want to delete this workspace?",
-          description: "You have an active trial to one of our paid plans. Please cancel it first to proceed.",
+          description:
+            "You have an active trial to one of our paid plans. Please cancel it first to proceed.",
           dismiss: "Dismiss",
           cancel: "Cancel trial",
           success_title: "Workspace deleted.",
@@ -1493,7 +1565,8 @@ export default {
       },
       billing_and_plans: {
         heading: "Billing & Plans",
-        description: "Choose your plan, manage subscriptions, and easily upgrade as your needs grow.",
+        description:
+          "Choose your plan, manage subscriptions, and easily upgrade as your needs grow.",
         title: "Billing & Plans",
         current_plan: "Current plan",
         free_plan: "You are currently using the free plan",
@@ -1501,20 +1574,23 @@ export default {
       },
       exports: {
         heading: "Exports",
-        description: "Export your project data in various formats and access your export history with download links.",
+        description:
+          "Export your project data in various formats and access your export history with download links.",
         title: "Exports",
         exporting: "Exporting",
         previous_exports: "Previous exports",
         export_separate_files: "Export the data into separate files",
         exporting_projects: "Exporting project",
         format: "Format",
-        filters_info: "Apply filters to export specific work items based on your criteria.",
+        filters_info:
+          "Apply filters to export specific work items based on your criteria.",
         modal: {
           title: "Export to",
           toasts: {
             success: {
               title: "Export successful",
-              message: "You will be able to download the exported {entity} from the previous export.",
+              message:
+                "You will be able to download the exported {entity} from the previous export.",
             },
             error: {
               title: "Export failed",
@@ -1525,7 +1601,8 @@ export default {
       },
       webhooks: {
         heading: "Webhooks",
-        description: "Automate notifications to external services when project events occur.",
+        description:
+          "Automate notifications to external services when project events occur.",
         title: "Webhooks",
         add_webhook: "Add webhook",
         modal: {
@@ -1606,11 +1683,13 @@ export default {
       },
       webhooks: {
         title: "No webhooks added",
-        description: "Create webhooks to receive real-time updates and automate actions.",
+        description:
+          "Create webhooks to receive real-time updates and automate actions.",
       },
       exports: {
         title: "No exports yet",
-        description: "Anytime you export, you will also have a copy here for reference.",
+        description:
+          "Anytime you export, you will also have a copy here for reference.",
       },
       imports: {
         title: "No imports yet",
@@ -1634,11 +1713,13 @@ export default {
       subscribed: "Work items subscribed",
       state_distribution: {
         title: "Work items by state",
-        empty: "Create work items to view the them by states in the graph for better analysis.",
+        empty:
+          "Create work items to view the them by states in the graph for better analysis.",
       },
       priority_distribution: {
         title: "Work items by Priority",
-        empty: "Create work items to view the them by priority in the graph for better analysis.",
+        empty:
+          "Create work items to view the them by priority in the graph for better analysis.",
       },
       recent_activity: {
         title: "Recent activity",
@@ -1674,11 +1755,13 @@ export default {
       },
       created: {
         title: "No work items yet",
-        description: "All work items created by you come here, track them here directly.",
+        description:
+          "All work items created by you come here, track them here directly.",
       },
       subscribed: {
         title: "No work items yet",
-        description: "Subscribe to work items you are interested in, track all of them here.",
+        description:
+          "Subscribe to work items you are interested in, track all of them here.",
       },
     },
   },
@@ -1709,7 +1792,8 @@ export default {
       default_assignee: "Default assignee",
       guest_super_permissions: {
         title: "Grant view access to all work items for guest users:",
-        sub_heading: "This will allow guests to have view access to all the project work items.",
+        sub_heading:
+          "This will allow guests to have view access to all the project work items.",
       },
       invite_members: {
         title: "Invite members",
@@ -1719,8 +1803,10 @@ export default {
     },
     states: {
       heading: "States",
-      description: "Define and customize workflow states to track the progress of your work items.",
-      describe_this_state_for_your_members: "Describe this state for your members.",
+      description:
+        "Define and customize workflow states to track the progress of your work items.",
+      describe_this_state_for_your_members:
+        "Describe this state for your members.",
       empty_state: {
         title: "No states available for the {groupKey} group",
         description: "Please create a new state",
@@ -1728,7 +1814,8 @@ export default {
     },
     labels: {
       heading: "Labels",
-      description: "Create custom labels to categorize and organize your work items",
+      description:
+        "Create custom labels to categorize and organize your work items",
       label_title: "Label title",
       label_title_is_required: "Label title is required",
       label_max_char: "Label name should not exceed 255 characters",
@@ -1738,10 +1825,12 @@ export default {
     },
     estimates: {
       heading: "Estimates",
-      description: "Set up estimation systems to track and communicate the effort required for each work item.",
+      description:
+        "Set up estimation systems to track and communicate the effort required for each work item.",
       label: "Estimates",
       title: "Enable estimates for my project",
-      enable_description: "They help you in communicating complexity and workload of the team.",
+      enable_description:
+        "They help you in communicating complexity and workload of the team.",
       no_estimate: "No estimate",
       new: "New estimate system",
       create: {
@@ -1761,7 +1850,8 @@ export default {
           },
           error: {
             title: "Estimate creation failed",
-            message: "We were unable to create the new estimate, please try again.",
+            message:
+              "We were unable to create the new estimate, please try again.",
           },
         },
         updated: {
@@ -1793,13 +1883,16 @@ export default {
       },
       validation: {
         min_length: "Estimate needs to be greater than 0.",
-        unable_to_process: "We are unable to process your request, please try again.",
+        unable_to_process:
+          "We are unable to process your request, please try again.",
         numeric: "Estimate needs to be a numeric value.",
         character: "Estimate needs to be a character value.",
         empty: "Estimate value cannot be empty.",
         already_exists: "Estimate value already exists.",
-        unsaved_changes: "You have some unsaved changes, Please save them before clicking on done",
-        remove_empty: "Estimate can't be empty. Enter a value in each field or remove those you don't have values for.",
+        unsaved_changes:
+          "You have some unsaved changes, Please save them before clicking on done",
+        remove_empty:
+          "Estimate can't be empty. Enter a value in each field or remove those you don't have values for.",
       },
       systems: {
         points: {
@@ -1828,12 +1921,14 @@ export default {
         "Configure automated actions to streamline your project management workflow and reduce manual tasks.",
       "auto-archive": {
         title: "Auto-archive closed work items",
-        description: "Plane will auto archive work items that have been completed or canceled.",
+        description:
+          "Plane will auto archive work items that have been completed or canceled.",
         duration: "Auto-archive work items that are closed for",
       },
       "auto-close": {
         title: "Auto-close work items",
-        description: "Plane will automatically close work items that haven't been completed or canceled.",
+        description:
+          "Plane will automatically close work items that haven't been completed or canceled.",
         duration: "Auto-close work items that are inactive for",
         auto_close_status: "Auto-close status",
       },
@@ -1841,11 +1936,13 @@ export default {
     empty_state: {
       labels: {
         title: "No labels yet",
-        description: "Create labels to help organize and filter work items in you project.",
+        description:
+          "Create labels to help organize and filter work items in you project.",
       },
       estimates: {
         title: "No estimate systems yet",
-        description: "Create a set of estimates to communicate the amount of work per work item.",
+        description:
+          "Create a set of estimates to communicate the amount of work per work item.",
         primary_button: "Add estimate system",
       },
     },
@@ -1853,37 +1950,46 @@ export default {
       cycles: {
         title: "Cycles",
         short_title: "Cycles",
-        description: "Schedule work in flexible periods that adapt to this project's unique rhythm and pace.",
+        description:
+          "Schedule work in flexible periods that adapt to this project's unique rhythm and pace.",
         toggle_title: "Enable cycles",
         toggle_description: "Plan work in focused timeframes.",
       },
       modules: {
         title: "Modules",
         short_title: "Modules",
-        description: "Organize work into sub-projects with dedicated leads and assignees.",
+        description:
+          "Organize work into sub-projects with dedicated leads and assignees.",
         toggle_title: "Enable modules",
-        toggle_description: "Project members will be able to create and edit modules.",
+        toggle_description:
+          "Project members will be able to create and edit modules.",
       },
       views: {
         title: "Views",
         short_title: "Views",
-        description: "Save custom sorts, filters, and display options or share them with your team.",
+        description:
+          "Save custom sorts, filters, and display options or share them with your team.",
         toggle_title: "Enable views",
-        toggle_description: "Project members will be able to create and edit views.",
+        toggle_description:
+          "Project members will be able to create and edit views.",
       },
       pages: {
         title: "Pages",
         short_title: "Pages",
-        description: "Create and edit free-form content; notes, docs, anything.",
+        description:
+          "Create and edit free-form content; notes, docs, anything.",
         toggle_title: "Enable pages",
-        toggle_description: "Project members will be able to create and edit pages.",
+        toggle_description:
+          "Project members will be able to create and edit pages.",
       },
       intake: {
         title: "Intake",
         short_title: "Intake",
-        description: "Let non-members share bugs, feedback, and suggestions; without disrupting your workflow.",
+        description:
+          "Let non-members share bugs, feedback, and suggestions; without disrupting your workflow.",
         toggle_title: "Enable intake",
-        toggle_description: "Let project members create in app intake requests.",
+        toggle_description:
+          "Let project members create in app intake requests.",
       },
     },
   },
@@ -1895,8 +2001,10 @@ export default {
     create_cycle: "Create cycle",
     no_matching_cycles: "No matching cycles",
     remove_filters_to_see_all_cycles: "Remove the filters to see all cycles",
-    remove_search_criteria_to_see_all_cycles: "Remove the search criteria to see all cycles",
-    only_completed_cycles_can_be_archived: "Only completed cycles can be archived",
+    remove_search_criteria_to_see_all_cycles:
+      "Remove the search criteria to see all cycles",
+    only_completed_cycles_can_be_archived:
+      "Only completed cycles can be archived",
     start_date: "Start date",
     end_date: "End date",
     in_your_timezone: "In your timezone",
@@ -1957,7 +2065,8 @@ export default {
           title: "Success!",
         },
         failed: {
-          description: "Couldn't remove the cycle from favorites. Please try again.",
+          description:
+            "Couldn't remove the cycle from favorites. Please try again.",
           title: "Error!",
         },
       },
@@ -1993,7 +2102,8 @@ export default {
       },
       no_issues: {
         title: "No work items added to the cycle",
-        description: "Add or create work items you wish to timebox and deliver within this cycle",
+        description:
+          "Add or create work items you wish to timebox and deliver within this cycle",
         primary_button: {
           text: "Create new work item",
         },
@@ -2013,7 +2123,8 @@ export default {
       },
       archived: {
         title: "No archived cycles yet",
-        description: "To tidy up your project, archive completed cycles. Find them here once archived.",
+        description:
+          "To tidy up your project, archive completed cycles. Find them here once archived.",
       },
     },
   },
@@ -2057,7 +2168,8 @@ export default {
     delete_module: "Delete module",
     empty_state: {
       general: {
-        title: "Map your project milestones to Modules and track aggregated work easily.",
+        title:
+          "Map your project milestones to Modules and track aggregated work easily.",
         description:
           "A group of work items that belong to a logical, hierarchical parent form a module. Think of them as a way to track work by project milestones. They have their own periods and deadlines as well as analytics to help you see how close or far you are from a milestone.",
         primary_button: {
@@ -2071,7 +2183,8 @@ export default {
       },
       no_issues: {
         title: "No work items in the module",
-        description: "Create or add work items which you want to accomplish as part of this module",
+        description:
+          "Create or add work items which you want to accomplish as part of this module",
         primary_button: {
           text: "Create new work items",
         },
@@ -2081,7 +2194,8 @@ export default {
       },
       archived: {
         title: "No archived Modules yet",
-        description: "To tidy up your project, archive completed or cancelled modules. Find them here once archived.",
+        description:
+          "To tidy up your project, archive completed or cancelled modules. Find them here once archived.",
       },
       sidebar: {
         in_active: "This module isn't active yet.",
@@ -2090,7 +2204,8 @@ export default {
     },
     quick_actions: {
       archive_module: "Archive module",
-      archive_module_description: "Only completed or canceled\nmodule can be archived.",
+      archive_module_description:
+        "Only completed or canceled\nmodule can be archived.",
       delete_module: "Delete module",
     },
     toast: {
@@ -2106,20 +2221,23 @@ export default {
   project_views: {
     empty_state: {
       general: {
-        title: "Save filtered views for your project. Create as many as you need",
+        title:
+          "Save filtered views for your project. Create as many as you need",
         description:
           "Views are a set of saved filters that you use frequently or want easy access to. All your colleagues in a project can see everyone’s views and choose whichever suits their needs best.",
         primary_button: {
           text: "Create your first view",
           comic: {
             title: "Views work atop Work item properties.",
-            description: "You can create a view from here with as many properties as filters as you see fit.",
+            description:
+              "You can create a view from here with as many properties as filters as you see fit.",
           },
         },
       },
       filter: {
         title: "No matching views",
-        description: "No views match the search criteria. \n Create a new view instead.",
+        description:
+          "No views match the search criteria. \n Create a new view instead.",
       },
     },
     delete_view: {
@@ -2141,21 +2259,24 @@ export default {
       },
       private: {
         title: "No private pages yet",
-        description: "Keep your private thoughts here. When you're ready to share, the team's just a click away.",
+        description:
+          "Keep your private thoughts here. When you're ready to share, the team's just a click away.",
         primary_button: {
           text: "Create your first page",
         },
       },
       public: {
         title: "No public pages yet",
-        description: "See pages shared with everyone in your project right here.",
+        description:
+          "See pages shared with everyone in your project right here.",
         primary_button: {
           text: "Create your first page",
         },
       },
       archived: {
         title: "No archived pages yet",
-        description: "Archive pages not on your radar. Access them here when needed.",
+        description:
+          "Archive pages not on your radar. Access them here when needed.",
       },
     },
   },
@@ -2180,7 +2301,8 @@ export default {
     empty_state: {
       general: {
         title: "No comments yet",
-        description: "Comments can be used as a discussion and follow-up space for the work items",
+        description:
+          "Comments can be used as a discussion and follow-up space for the work items",
       },
     },
   },
@@ -2215,11 +2337,13 @@ export default {
       },
       all: {
         title: "No work items assigned",
-        description: "Updates for work items assigned to you can be \n seen here",
+        description:
+          "Updates for work items assigned to you can be \n seen here",
       },
       mentions: {
         title: "No work items assigned",
-        description: "Updates for work items assigned to you can be \n seen here",
+        description:
+          "Updates for work items assigned to you can be \n seen here",
       },
     },
     tabs: {
@@ -2249,13 +2373,16 @@ export default {
         title: "Add work items to the cycle to view the burndown chart.",
       },
       priority_issue: {
-        title: "Observe high priority work items tackled in the cycle at a glance.",
+        title:
+          "Observe high priority work items tackled in the cycle at a glance.",
       },
       assignee: {
-        title: "Add assignees to work items to see a breakdown of work by assignees.",
+        title:
+          "Add assignees to work items to see a breakdown of work by assignees.",
       },
       label: {
-        title: "Add labels to work items to see the breakdown of work by labels.",
+        title:
+          "Add labels to work items to see the breakdown of work by labels.",
       },
     },
   },
@@ -2315,7 +2442,8 @@ export default {
     },
     delete_modal: {
       title: "Delete draft",
-      description: "Are you sure you want to delete this draft? This can't be undone.",
+      description:
+        "Are you sure you want to delete this draft? This can't be undone.",
     },
     toasts: {
       created: {
@@ -2331,13 +2459,15 @@ export default {
     title: "Your stickies",
     placeholder: "click to type here",
     all: "All stickies",
-    "no-data": "Jot down an idea, capture an aha, or record a brainwave. Add a sticky to get started.",
+    "no-data":
+      "Jot down an idea, capture an aha, or record a brainwave. Add a sticky to get started.",
     add: "Add sticky",
     search_placeholder: "Search by title",
     delete: "Delete sticky",
     delete_confirmation: "Are you sure you want to delete this sticky?",
     empty_state: {
-      simple: "Jot down an idea, capture an aha, or record a brainwave. Add a sticky to get started.",
+      simple:
+        "Jot down an idea, capture an aha, or record a brainwave. Add a sticky to get started.",
       general: {
         title: "Stickies are quick notes and to-dos you take down on the fly.",
         description:
@@ -2348,7 +2478,8 @@ export default {
       },
       search: {
         title: "That doesn't match any of your stickies.",
-        description: "Try a different term or let us know\nif you are sure your search is right. ",
+        description:
+          "Try a different term or let us know\nif you are sure your search is right. ",
         primary_button: {
           text: "Add sticky",
         },
@@ -2388,11 +2519,13 @@ export default {
   role_details: {
     guest: {
       title: "Guest",
-      description: "External members of organizations can be invited as guests.",
+      description:
+        "External members of organizations can be invited as guests.",
     },
     member: {
       title: "Member",
-      description: "Ability to read, write, edit, and delete entities inside projects, cycles, and modules",
+      description:
+        "Ability to read, write, edit, and delete entities inside projects, cycles, and modules",
     },
     admin: {
       title: "Admin",
@@ -2578,13 +2711,16 @@ export default {
         delete: "Delete",
         copy_id: "Copy ID",
         copy_id_toast_success: "Work item ID copied to clipboard.",
-        copy_id_toast_error: "Some error occurred while copying the work item ID to clipboard.",
+        copy_id_toast_error:
+          "Some error occurred while copying the work item ID to clipboard.",
         copy_title: "Copy title",
         copy_title_toast_success: "Work item title copied to clipboard.",
-        copy_title_toast_error: "Some error occurred while copying the work item title to clipboard.",
+        copy_title_toast_error:
+          "Some error occurred while copying the work item title to clipboard.",
         copy_url: "Copy URL",
         copy_url_toast_success: "Work item URL copied to clipboard.",
-        copy_url_toast_error: "Some error occurred while copying the work item URL to clipboard.",
+        copy_url_toast_error:
+          "Some error occurred while copying the work item URL to clipboard.",
       },
       cycle: {
         title: "Cycle actions",
@@ -2593,7 +2729,8 @@ export default {
         remove_from_favorites: "Remove from favorites",
         copy_url: "Copy URL",
         copy_url_toast_success: "Cycle URL copied to clipboard.",
-        copy_url_toast_error: "Some error occurred while copying the cycle URL to clipboard.",
+        copy_url_toast_error:
+          "Some error occurred while copying the cycle URL to clipboard.",
       },
       module: {
         title: "Module actions",
@@ -2604,7 +2741,8 @@ export default {
         remove_from_favorites: "Remove from favorites",
         copy_url: "Copy URL",
         copy_url_toast_success: "Module URL copied to clipboard.",
-        copy_url_toast_error: "Some error occurred while copying the module URL to clipboard.",
+        copy_url_toast_error:
+          "Some error occurred while copying the module URL to clipboard.",
       },
       page: {
         title: "Page actions",
@@ -2619,7 +2757,8 @@ export default {
         remove_from_favorites: "Remove from favorites",
         copy_url: "Copy URL",
         copy_url_toast_success: "Page URL copied to clipboard.",
-        copy_url_toast_error: "Some error occurred while copying the page URL to clipboard.",
+        copy_url_toast_error:
+          "Some error occurred while copying the page URL to clipboard.",
       },
     },
     creation_actions: {
@@ -2668,8 +2807,10 @@ export default {
     miscellaneous_actions: {
       toggle_app_sidebar: "Toggle app sidebar",
       copy_current_page_url: "Copy current page URL",
-      copy_current_page_url_toast_success: "Current page URL copied to clipboard.",
-      copy_current_page_url_toast_error: "Some error occurred while copying the current page URL to clipboard.",
+      copy_current_page_url_toast_success:
+        "Current page URL copied to clipboard.",
+      copy_current_page_url_toast_error:
+        "Some error occurred while copying the current page URL to clipboard.",
       focus_top_nav_search: "Focus search input",
     },
     preferences_actions: {

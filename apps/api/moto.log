@@ -1,0 +1,12 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:9000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [22/Mar/2026 14:33:51] "[33mHEAD /uploads HTTP/1.1[0m" 404 -
+127.0.0.1 - - [22/Mar/2026 14:33:51] "PUT /uploads HTTP/1.1" 200 -
+127.0.0.1 - - [22/Mar/2026 14:33:51] "PUT /uploads?policy HTTP/1.1" 200 -
+127.0.0.1 - - [22/Mar/2026 14:38:11] "[35m[1mPOST /uploads HTTP/1.1[0m" 204 -
+127.0.0.1 - - [22/Mar/2026 14:38:12] "GET /uploads/c71554d7-d5b7-47c8-9d92-acae54f4252e/89a2176075204a288d7dacc3af5c46f2-Screenshot%202026-03-22%20at%202.04.49%20PM.png?response-content-disposition=inline;%20filename*%3DUTF-8''1c04c66e418a48888d84a7d4f90f015a&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=access-key/20260322//s3/aws4_request&X-Amz-Date=20260322T090812Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=464283b419c9418045e47f73fd0708f4f11a8e0a9871952e219bcecdd9152d66 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Mar/2026 14:38:12] "HEAD /uploads/c71554d7-d5b7-47c8-9d92-acae54f4252e/89a2176075204a288d7dacc3af5c46f2-Screenshot%202026-03-22%20at%202.04.49%20PM.png HTTP/1.1" 200 -
+127.0.0.1 - - [22/Mar/2026 14:38:17] "[35m[1mPOST /uploads HTTP/1.1[0m" 204 -
+127.0.0.1 - - [22/Mar/2026 14:38:17] "HEAD /uploads/c71554d7-d5b7-47c8-9d92-acae54f4252e/51f123a5099e4c69b73071db62301e73-image_2.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [22/Mar/2026 14:39:03] "GET /uploads/c71554d7-d5b7-47c8-9d92-acae54f4252e/51f123a5099e4c69b73071db62301e73-image_2.jpg?response-content-disposition=inline;%20filename*%3DUTF-8''f030ab5d89284a6f83b0a6e74fc1d8ee&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=access-key/20260322//s3/aws4_request&X-Amz-Date=20260322T090903Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5dd983bcad362852767ae78bc0a3500a61ddce8b1d74408a10c62dc2f7f66c22 HTTP/1.1" 200 -

@@ -1,0 +1,92 @@
+# SpecFlow Docker Compose - Production Deployment
+# This is a focused deployment for the SpecFlow autonomous system
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  specflow-db:
+    image: postgres:15-alpine
+    container_name: specflow-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-specflow}
+      POSTGRES_USER: ${POSTGRES_USER:-specflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-specflow}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-specflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache & Broker
+  specflow-redis:
+    image: redis:7-alpine
+    container_name: specflow-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # SpecFlow API (Django)
+  specflow-api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: specflow-api
+    environment:
+      - DEBUG=0
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-specflow}:${POSTGRES_PASSWORD:-specflow}@specflow-db:5432/${POSTGRES_DB:-specflow}
+      - REDIS_URL=redis://specflow-redis:6379/
+      - SECRET_KEY=${SECRET_KEY:-change-this-in-production}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - GITHUB_REPO_OWNER=${GITHUB_REPO_OWNER:-}
+      - GITHUB_REPO_NAME=${GITHUB_REPO_NAME:-}
+    ports:
+      - "8000:8000"
+    depends_on:
+      specflow-db:
+        condition: service_healthy
+      specflow-redis:
+        condition: service_healthy
+    volumes:
+      - ./apps/api:/app
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  # Celery Worker
+  specflow-worker:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: specflow-worker
+    command: celery -A plane worker -l info
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-specflow}:${POSTGRES_PASSWORD:-specflow}@specflow-db:5432/${POSTGRES_DB:-specflow}
+      - REDIS_URL=redis://specflow-redis:6379/
+      - SECRET_KEY=${SECRET_KEY:-change-this-in-production}
+    depends_on:
+      - specflow-redis
+      - specflow-db
+    volumes:
+      - ./apps/api:/app
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads:
+
+networks:
+  default:
+    name: specflow-network

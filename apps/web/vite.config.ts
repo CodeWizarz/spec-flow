@@ -28,11 +28,23 @@ export default defineConfig(() => ({
       "next/link": path.resolve(__dirname, "app/compat/next/link.tsx"),
       "next/navigation": path.resolve(__dirname, "app/compat/next/navigation.ts"),
       "next/script": path.resolve(__dirname, "app/compat/next/script.tsx"),
+      // Mock Node.js modules for browser compatibility with sanitize-html
+      path: path.resolve(__dirname, "app/compat/mock-node.ts"),
+      "source-map-js": path.resolve(__dirname, "app/compat/mock-node.ts"),
+      url: path.resolve(__dirname, "app/compat/mock-node.ts"),
+      fs: path.resolve(__dirname, "app/compat/mock-node.ts"),
     },
     dedupe: ["react", "react-dom", "@headlessui/react"],
   },
   server: {
     host: "127.0.0.1",
+    proxy: {
+      "/api": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   // No SSR-specific overrides needed; alias resolves to ESM build
 }));

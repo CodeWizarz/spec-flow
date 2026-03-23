@@ -3,18 +3,20 @@
 # See the LICENSE file for details.
 
 # Python imports
+from typing import Any, Optional
+
 import pytz
-from typing import Optional, Any
 
 # Django imports
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 
+from plane.utils.color import get_random_color
+from plane.utils.constants import RESTRICTED_WORKSPACE_SLUGS
+
 # Module imports
 from .base import BaseModel
-from plane.utils.constants import RESTRICTED_WORKSPACE_SLUGS
-from plane.utils.color import get_random_color
 
 ROLE_CHOICES = ((20, "Admin"), (15, "Member"), (5, "Guest"))
 
@@ -425,6 +427,11 @@ class WorkspaceUserPreference(BaseModel):
         YOUR_WORK = "your_work", "Your Work"
         ARCHIVES = "archives", "Archives"
         STICKIES = "stickies", "Stickies"
+        SIGNALS = "signals", "Signals"
+        INSIGHTS = "insights", "Insights"
+        SPECS = "specs", "Specs"
+        MEMORY = "memory", "Memory"
+        HEALTH = "health", "Health"
 
     workspace = models.ForeignKey(
         "db.Workspace",

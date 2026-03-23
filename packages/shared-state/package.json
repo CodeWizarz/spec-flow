@@ -29,6 +29,7 @@
     "@plane/constants": "workspace:*",
     "@plane/types": "workspace:*",
     "@plane/utils": "workspace:*",
+    "form-data": "^4.0.5",
     "lodash-es": "catalog:",
     "mobx": "catalog:",
     "mobx-utils": "catalog:",
