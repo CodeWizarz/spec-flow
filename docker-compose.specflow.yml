@@ -44,14 +44,17 @@ services:
     container_name: specflow-api
     environment:
       - DEBUG=0
+      - PYTHONPATH=/app
       - DATABASE_URL=postgresql://${POSTGRES_USER:-specflow}:${POSTGRES_PASSWORD:-specflow}@specflow-db:5432/${POSTGRES_DB:-specflow}
       - REDIS_URL=redis://specflow-redis:6379/
       - SECRET_KEY=${SECRET_KEY:-change-this-in-production}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
       - GITHUB_REPO_OWNER=${GITHUB_REPO_OWNER:-}
       - GITHUB_REPO_NAME=${GITHUB_REPO_NAME:-}
+      - SECURE_SSL_REDIRECT=0
+      - USE_X_FORWARDED_HOST=1
     ports:
       - "8000:8000"
     depends_on:
@@ -72,14 +75,31 @@ services:
     container_name: specflow-worker
     command: celery -A plane worker -l info
     environment:
+      - PYTHONPATH=/app
       - DATABASE_URL=postgresql://${POSTGRES_USER:-specflow}:${POSTGRES_PASSWORD:-specflow}@specflow-db:5432/${POSTGRES_DB:-specflow}
       - REDIS_URL=redis://specflow-redis:6379/
+      - CELERY_BROKER_URL=redis://specflow-redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://specflow-redis:6379/0
       - SECRET_KEY=${SECRET_KEY:-change-this-in-production}
     depends_on:
       - specflow-redis
       - specflow-db
     volumes:
       - ./apps/api:/app
+    restart: unless-stopped
+
+  # Frontend Web
+  specflow-web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile.web
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    container_name: specflow-web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - specflow-api
     restart: unless-stopped
 
 volumes:
