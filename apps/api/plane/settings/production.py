@@ -46,6 +46,39 @@ except Exception:
     pass
 
 # Logging configuration
+LOG_FILE_PATH = os.path.join(LOG_DIR, "plane-error.log")
+
+# Check if we can write to logs directory
+CAN_WRITE_LOGS = False
+try:
+    test_file = os.path.join(LOG_DIR, ".test")
+    with open(test_file, "w") as f:
+        f.write("test")
+    os.remove(test_file)
+    CAN_WRITE_LOGS = True
+except Exception:
+    pass
+
+HANDLERS = {
+    "console": {
+        "class": "logging.StreamHandler",
+        "formatter": "json",
+        "level": "INFO",
+    },
+}
+
+if CAN_WRITE_LOGS:
+    HANDLERS["file"] = {
+        "class": "plane.utils.logging.SizedTimedRotatingFileHandler",
+        "filename": LOG_FILE_PATH,
+        "when": "s",
+        "maxBytes": 1024 * 1024 * 1,
+        "interval": 1,
+        "backupCount": 5,
+        "formatter": "json",
+        "level": "DEBUG" if DEBUG else "ERROR",
+    }
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": True,
@@ -56,27 +89,7 @@ LOGGING = {
             "fmt": "%(levelname)s %(asctime)s %(module)s %(name)s %(message)s",
         },
     },
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "json",
-            "level": "INFO",
-        },
-        "file": {
-            "class": "plane.utils.logging.SizedTimedRotatingFileHandler",
-            "filename": (
-                os.path.join(BASE_DIR, "logs", "plane-debug.log")  # noqa
-                if DEBUG
-                else os.path.join(BASE_DIR, "logs", "plane-error.log")  # noqa
-            ),
-            "when": "s",
-            "maxBytes": 1024 * 1024 * 1,
-            "interval": 1,
-            "backupCount": 5,
-            "formatter": "json",
-            "level": "DEBUG" if DEBUG else "ERROR",
-        },
-    },
+    "handlers": HANDLERS,
     "loggers": {
         "plane.api.request": {
             "level": "DEBUG" if DEBUG else "INFO",
@@ -95,7 +108,7 @@ LOGGING = {
         },
         "plane.exception": {
             "level": "DEBUG" if DEBUG else "ERROR",
-            "handlers": ["console", "file"],
+            "handlers": ["console"] + (["file"] if CAN_WRITE_LOGS else []),
             "propagate": False,
         },
         "plane.external": {
