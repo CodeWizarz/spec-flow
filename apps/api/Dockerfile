@@ -1,7 +1,7 @@
 # SpecFlow Backend Dockerfile
 # Multi-stage build for production
 
-FROM python:3.13-slim as builder
+FROM python:3.11-slim as builder
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,13 +13,13 @@ RUN apt-get update && apt-get install -y \
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy requirements first (better layer caching)
+COPY requirements/ ./requirements/
+RUN pip install --no-cache-dir -r requirements/production.txt
 
 
 # Production stage
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
@@ -36,15 +36,22 @@ WORKDIR /app
 # Copy application
 COPY . .
 
-# Create non-root user for security
-RUN useradd --create-home specflow && \
-    chown -R specflow:specflow /app
+# Create non-root user for security FIRST
+RUN useradd --create-home specflow
+
+# Create logs directory with proper permissions for specflow user
+RUN mkdir -p /app/plane/logs && chown -R specflow:specflow /app/plane/logs
+
+# Change ownership of entire app to specflow
+RUN chown -R specflow:specflow /app
+
 USER specflow
 
 # Environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    DJANGO_SETTINGS_MODULE=plane.settings.production
+    DJANGO_SETTINGS_MODULE=plane.settings.production \
+    PYTHONPATH=/app
 
 # Expose port
 EXPOSE 8000
