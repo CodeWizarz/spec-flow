@@ -1,7 +1,7 @@
 # SpecFlow Backend Dockerfile
 # Multi-stage build for production
 
-FROM python:3.11-slim as builder
+FROM python:3.14-slim as builder
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r requirements/production.txt
 
 
 # Production stage
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
