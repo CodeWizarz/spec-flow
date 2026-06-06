@@ -30,7 +30,7 @@
     "@plane/types": "workspace:*",
     "chroma-js": "^3.2.0",
     "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
+    "date-fns": "^4.4.0",
     "hast": "^1.0.0",
     "hast-util-to-mdast": "^10.1.2",
     "lodash-es": "catalog:",
@@ -41,8 +41,8 @@
     "rehype-remark": "^10.0.1",
     "remark-gfm": "^4.0.1",
     "remark-stringify": "^11.0.0",
-    "sanitize-html": "2.17.0",
-    "tailwind-merge": "3.4.0",
+    "sanitize-html": "2.17.4",
+    "tailwind-merge": "3.6.0",
     "unified": "^11.0.5",
     "uuid": "catalog:"
   },
@@ -54,7 +54,7 @@
     "@types/mdast": "^4.0.4",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
-    "@types/sanitize-html": "2.16.0",
+    "@types/sanitize-html": "2.16.1",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }
